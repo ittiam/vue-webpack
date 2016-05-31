@@ -31,7 +31,7 @@ export default {
       console.log(data);
     });
 
-    this.$http.post('dangan/interfaceIndexFilter', function(data) {
+    this.$http.get('api/v1/topics', function(data) {
       console.log(data);
     });
   },
