@@ -25,7 +25,7 @@ htmls.forEach(function(filename) {
   pages[basename] = {
     entry: './src/' + basename + '.js',
     html: path.resolve(__dirname, '../dist/' + basename + '.html')
-  }
+  };
 });
 
 module.exports = {

@@ -26,9 +26,14 @@
 import Hello from './components/Hello';
 
 export default {
-  components: {
-    Hello,
+  ready () {
+    this.$http.get('ajax/mock', function(data) {
+      console.log(data);
+    });
   },
+  components: {
+    Hello
+  }
 };
 </script>
 
