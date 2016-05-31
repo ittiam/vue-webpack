@@ -1,6 +1,7 @@
 var webpack = require('webpack');
+var path = require('path');
 
-module.exports = function commonChunks () {
+module.exports = function commonChunks() {
 
   return [
     new webpack.optimize.CommonsChunkPlugin({
@@ -19,5 +20,6 @@ module.exports = function commonChunks () {
       name: 'manifest',
       chunks: ['vendor']
     })
-  ]
-}
+  ];
+
+};

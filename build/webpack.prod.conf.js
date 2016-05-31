@@ -6,10 +6,11 @@ var merge = require('webpack-merge');
 var baseWebpackConfig = require('./webpack.base.conf');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var commonChunks = require('./common-chunks');
 var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : config.build.env;
+
+var chunks = Object.keys(config.pages);
 
 var plugins = Object.keys(config.pages).map(function(name) {
   return new HtmlWebpackPlugin({
@@ -18,7 +19,7 @@ var plugins = Object.keys(config.pages).map(function(name) {
         : config.pages[name].html,
       template: name + '.html',
       inject: true,
-      chunks: ['vendors', name],
+      chunks: ['vendor', name],
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -54,7 +55,12 @@ module.exports = merge(baseWebpackConfig, {
       }
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      chunks: chunks,
+      minChunks: chunks.length
+    }),
     // extract css into its own file
     new ExtractTextPlugin(utils.assetsPath('styles/[name].[contenthash].css'))
-  ].concat(plugins).concat(commonChunks)
+  ].concat(plugins)
 });
