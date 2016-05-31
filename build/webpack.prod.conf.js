@@ -12,7 +12,28 @@ var env = process.env.NODE_ENV === 'testing'
 
 var chunks = Object.keys(config.pages);
 
-var plugins = Object.keys(config.pages).map(function(name) {
+var commonChunks = new webpack.optimize.CommonsChunkPlugin({
+  name: 'vendor',
+  minChunks: function (module, count) {
+    // any required modules inside node_modules are extracted to vendor
+    return (
+      module.resource &&
+      module.resource.indexOf(
+        path.join(__dirname, '../node_modules')
+      ) === 0
+    );
+  }
+});
+
+if (chunks.length > 1) {
+  commonChunks = new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      chunks: chunks,
+      minChunks: chunks.length
+    });
+}
+
+var plugins = chunks.map(function(name) {
   return new HtmlWebpackPlugin({
       filename: process.env.NODE_ENV === 'testing'
         ? name + '.html'
@@ -55,11 +76,7 @@ module.exports = merge(baseWebpackConfig, {
       }
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      chunks: chunks,
-      minChunks: chunks.length
-    }),
+    commonChunks,
     // extract css into its own file
     new ExtractTextPlugin(utils.assetsPath('styles/[name].[contenthash].css'))
   ].concat(plugins)
