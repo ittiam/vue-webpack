@@ -1,6 +1,6 @@
-# wui
+# webpack-vue-template
 
-> A Vue.js project
+> webpack vue.js 多页
 
 ## Build Setup
 
