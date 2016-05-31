@@ -30,6 +30,10 @@ export default {
     this.$http.get('ajax/mock', function(data) {
       console.log(data);
     });
+
+    this.$http.post('dangan/interfaceIndexFilter', function(data) {
+      console.log(data);
+    });
   },
   components: {
     Hello
