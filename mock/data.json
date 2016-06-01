@@ -1,6 +1,6 @@
 {
-  "success": 1,
-  "message": "mock success",
+  "success": true,
+  "message": "",
   "data": {
 
   }

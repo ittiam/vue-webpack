@@ -1,5 +1,5 @@
-var path = require('path');
-var SpritesmithPlugin = require('webpack-spritesmith');
+const path = require('path');
+const SpritesmithPlugin = require('webpack-spritesmith');
 
 module.exports = function () {
   return new SpritesmithPlugin({

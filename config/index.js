@@ -1,6 +1,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
-var path = require('path');
-var fs = require('fs');
+const path = require('path');
+const fs = require('fs');
 
 function findFiles(dir, filter) {
   if (!fs.existsSync(dir)) {
@@ -8,9 +8,9 @@ function findFiles(dir, filter) {
     return;
   }
 
-  var files = fs.readdirSync(dir);
-  return files.filter(function(name) {
-    var filename = path.join(dir, name);
+  const files = fs.readdirSync(dir);
+  return files.filter(function (name) {
+    const filename = path.join(dir, name);
     if (!fs.lstatSync(filename).isDirectory() && filename.indexOf(filter) >= 0) {
       return true;
     }
@@ -18,18 +18,18 @@ function findFiles(dir, filter) {
   });
 }
 
-var htmls = findFiles(path.resolve(__dirname, '../'), '.html');
-var pages = {};
-htmls.forEach(function(filename) {
-  var basename = path.basename(filename, '.html');
+const htmls = findFiles(path.resolve(__dirname, '../'), '.html');
+const pages = {};
+htmls.forEach(function (filename) {
+  const basename = path.basename(filename, '.html');
   pages[basename] = {
-    entry: './src/' + basename + '.js',
-    html: path.resolve(__dirname, '../dist/' + basename + '.html')
+    entry: `./src/${basename}`,
+    html: path.resolve(__dirname, `../dist/${basename}.html`)
   };
 });
 
 module.exports = {
-  pages: pages,
+  pages,
   build: {
     env: require('./prod.env'),
     assetsRoot: path.resolve(__dirname, '../dist'),

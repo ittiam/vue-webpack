@@ -26,12 +26,12 @@
 import Hello from './components/Hello';
 
 export default {
-  ready () {
-    this.$http.get('ajax/mock', function(data) {
+  ready() {
+    this.$http.get('ajax/mock', (data) => {
       console.log(data);
     });
 
-    this.$http.get('api/v1/topics', function(data) {
+    this.$http.get('api/v1/topics', (data) => {
       console.log(data);
     });
   },

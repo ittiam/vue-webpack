@@ -1,17 +1,17 @@
-var path = require('path');
-var config = require('../config');
-var utils = require('./utils');
-var projectRoot = path.resolve(__dirname, '../');
-var autoprefixer = require('autoprefixer');
+const path = require('path');
+const config = require('../config');
+const utils = require('./utils');
+const projectRoot = path.resolve(__dirname, '../');
+const autoprefixer = require('autoprefixer');
 
-var entry = {};
+const entry = {};
 
 Object.keys(config.pages).forEach(function (name) {
-  entry[name] = config.pages[name].entry
+  entry[name] = config.pages[name].entry;
 });
 
 module.exports = {
-  entry: entry,
+  entry,
   output: {
     path: config.build.assetsRoot,
     publicPath: config.build.assetsPublicPath,
@@ -21,9 +21,9 @@ module.exports = {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
-      'src': path.resolve(__dirname, '../src'),
-      'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      src: path.resolve(__dirname, '../src'),
+      assets: path.resolve(__dirname, '../src/assets'),
+      components: path.resolve(__dirname, '../src/components')
     }
   },
   resolveLoader: {
@@ -31,18 +31,18 @@ module.exports = {
   },
   module: {
     preLoaders: [
-      // {
-      //   test: /\.vue$/,
-      //   loader: 'eslint',
-      //   include: projectRoot,
-      //   exclude: /node_modules/
-      // },
-      // {
-      //   test: /\.js$/,
-      //   loader: 'eslint',
-      //   include: projectRoot,
-      //   exclude: /node_modules/
-      // }
+      {
+        test: /\.vue$/,
+        loader: 'eslint',
+        include: projectRoot,
+        exclude: /node_modules/
+      },
+      {
+        test: /\.js$/,
+        loader: 'eslint',
+        include: projectRoot,
+        exclude: /node_modules/
+      }
     ],
     loaders: [
       {
