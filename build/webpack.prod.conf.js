@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const config = require('../config');
 const utils = require('./utils');
@@ -38,7 +40,7 @@ const plugins = chunks.map(function (name) {
     filename: process.env.NODE_ENV === 'testing'
       ? `${name}.html`
       : config.pages[name].html,
-    template: `${name}.html`,
+    template: `template/${name}.html`,
     inject: true,
     chunks: ['vendor', name],
     minify: {

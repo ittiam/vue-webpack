@@ -18,7 +18,7 @@ function findFiles(dir, filter) {
   });
 }
 
-const htmls = findFiles(path.resolve(__dirname, '../'), '.html');
+const htmls = findFiles(path.resolve(__dirname, '../template'), '.html');
 const pages = {};
 htmls.forEach(function (filename) {
   const basename = path.basename(filename, '.html');

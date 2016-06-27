@@ -13,7 +13,7 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
 const plugins = Object.keys(config.pages).map(function (name) {
   return new HtmlWebpackPlugin({
     filename: `${name}.html`,
-    template: `${name}.html`,
+    template: `template/${name}.html`,
     inject: true,
     chunks: [name]
   });
