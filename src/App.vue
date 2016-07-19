@@ -27,9 +27,11 @@ import Hello from './components/Hello';
 
 export default {
   ready() {
-    this.$http.get('shuju/interfaceIndustryChart/1', (data) => {
-      console.log(data);
-    });
+    this.$http
+      .get('shuju/interfaceIndustryChart/1')
+      .then((data) => {
+        console.log(data);
+      });
   },
   components: {
     Hello

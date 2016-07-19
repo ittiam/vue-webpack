@@ -1,5 +1,6 @@
 const path = require('path');
 const koa = require('koa');
+const serve = require('koa-static-server');
 const webpack = require('webpack');
 const config = require('../config');
 const webpackConfig = process.env.NODE_ENV === 'testing'
@@ -37,10 +38,6 @@ const devMiddleware = require('koa-webpack-dev-middleware')(compiler, {
 // serve webpack bundle output
 app.use(devMiddleware);
 
-if (config.proxy) {
-  app.use(require('koa-proxy')(config.proxy));
-}
-
 function hotMiddleware(compiler) {
   var doIt = require('webpack-hot-middleware')(compiler);
   return function* (next) {
@@ -56,10 +53,14 @@ function hotMiddleware(compiler) {
 // compilation error display
 app.use(hotMiddleware(compiler));
 
+if (config.proxy) {
+  app.use(require('koa-proxy')(config.proxy));
+}
+
 // serve pure static assets
 const staticPath = path.posix.join(config.build.assetsPublicPath, config.build.assetsSubDirectory);
-app.use(require('koa-static-server')({
-  rootDir: path.join(__dirname, '../static'),
+app.use(serve({
+  rootDir: './static',
   rootPath: staticPath
 }));
 
