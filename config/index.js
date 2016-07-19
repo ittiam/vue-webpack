@@ -37,8 +37,11 @@ module.exports = {
     assetsPublicPath: '/',
     productionSourceMap: true
   },
+  proxy: {
+    host: 'http://m.wdzj.com/'
+  },
   dev: {
     env: require('./dev.env'),
-    port: 8080
+    port: 8081
   }
 };

@@ -52,6 +52,10 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.24",
     "karma-webpack": "^1.7.0",
+    "koa": "^1.2.0",
+    "koa-proxy": "^0.6.0",
+    "koa-static-server": "^0.1.8",
+    "koa-webpack-dev-middleware": "^1.2.1",
     "lolex": "^1.4.0",
     "mocha": "^2.4.5",
     "nightwatch": "^0.8.18",
@@ -69,9 +73,7 @@
     "vue-loader": "^8.3.0",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.12.2",
-    "webpack-dev-middleware": "^1.4.0",
-    "webpack-hot-middleware": "^2.6.0",
-    "webpack-merge": "^0.8.3",
-    "yog-devtools": "^0.1.1"
+    "webpack-hot-middleware": "^2.12.1",
+    "webpack-merge": "^0.8.3"
   }
 }
