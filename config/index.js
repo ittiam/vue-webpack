@@ -18,10 +18,10 @@ function findFiles(dir, filter) {
   });
 }
 
-const htmls = findFiles(path.resolve(__dirname, '../template'), '.html');
+const htmls = findFiles(path.resolve(__dirname, '../template'), '.ejs');
 const pages = {};
 htmls.forEach(function (filename) {
-  const basename = path.basename(filename, '.html');
+  const basename = path.basename(filename, '.ejs');
   pages[basename] = {
     entry: `./src/${basename}`,
     html: path.resolve(__dirname, `../dist/${basename}.html`)
@@ -38,7 +38,7 @@ module.exports = {
     productionSourceMap: true
   },
   proxy: {
-    host: 'http://m.wdzj.com/'
+    host: 'https://github.com/'
   },
   dev: {
     env: require('./dev.env'),
