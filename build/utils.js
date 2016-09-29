@@ -33,11 +33,11 @@ exports.cssLoaders = function (options) {
   return {
     css: generateLoaders(['css', 'postcss']),
     postcss: generateLoaders(['css', 'postcss']),
-    less: generateLoaders(['css', 'less', 'postcss']),
-    sass: generateLoaders(['css', 'sass?indentedSyntax', 'postcss']),
-    scss: generateLoaders(['css', 'sass', 'postcss']),
-    stylus: generateLoaders(['css', 'stylus', 'postcss']),
-    styl: generateLoaders(['css', 'stylus', 'postcss'])
+    less: generateLoaders(['css', 'postcss', 'less']),
+    sass: generateLoaders(['css', 'postcss', 'sass?indentedSyntax']),
+    scss: generateLoaders(['css', 'postcss', 'sass']),
+    stylus: generateLoaders(['css', 'postcss', 'stylus']),
+    styl: generateLoaders(['css',  'postcss', 'stylus'])
   };
 };
 
