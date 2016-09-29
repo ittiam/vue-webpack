@@ -58,8 +58,8 @@ module.exports = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('scripts/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('scripts/[id].[chunkhash].js')
+    filename: utils.assetsPath('scripts/[name].[chunkhash:8].js'),
+    chunkFilename: utils.assetsPath('scripts/[id].[chunkhash:8].js')
   },
   vue: {
     loaders: utils.cssLoaders({
@@ -80,6 +80,6 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.optimize.OccurenceOrderPlugin(),
     commonChunks,
     // extract css into its own file
-    new ExtractTextPlugin(utils.assetsPath('styles/[name].[contenthash].css'))
+    new ExtractTextPlugin(utils.assetsPath('styles/[name].[contenthash:8].css'))
   ].concat(plugins)
 });
