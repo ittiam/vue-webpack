@@ -21,7 +21,7 @@ const plugins = Object.keys(config.pages).map(function (name) {
 
 module.exports = merge(baseWebpackConfig, {
   module: {
-    loaders: utils.styleLoaders()
+    loaders: utils.styleLoaders({sourceMap: true})
   },
   // eval-source-map is faster for development
   devtool: '#eval-source-map',
