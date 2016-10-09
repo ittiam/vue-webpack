@@ -1,5 +1,9 @@
 module.exports = {
   'root': true,
+  'parser': 'babel-eslint',
+  'parserOptions': {
+    sourceType: 'module'
+  },
   'extends': 'airbnb-base',
   // required to lint *.vue files
   'plugins': [

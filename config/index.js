@@ -1,35 +1,28 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 const path = require('path');
 const fs = require('fs');
+const glob = require('glob');
 
-function findFiles(dir, filter) {
-  if (!fs.existsSync(dir)) {
-    console.log('目录不存在！', dir);
-    return;
-  }
+function getEntry(globPath) {
+  var entries = {}, basename;
 
-  const files = fs.readdirSync(dir);
-  return files.filter(function (name) {
-    const filename = path.join(dir, name);
-    if (!fs.lstatSync(filename).isDirectory() && filename.indexOf(filter) >= 0) {
-      return true;
-    }
-    return false;
+  glob.sync(globPath).forEach(function (entry) {
+    basename = path.basename(entry, path.extname(entry));
+    // tmp = entry.split('/').splice(-3);
+    // pathname = tmp.splice(0, 1) + '/' + basename;
+    entries[basename] = entry;
   });
+
+  return entries;
 }
 
-const htmls = findFiles(path.resolve(__dirname, '../template'), '.ejs');
-const pages = {};
-htmls.forEach(function (filename) {
-  const basename = path.basename(filename, '.ejs');
-  pages[basename] = {
-    entry: `./src/${basename}`,
-    html: path.resolve(__dirname, `../dist/${basename}.html`)
-  };
-});
+const entries = getEntry('./src/modules/**/*.js');
+
+const pages = getEntry('./src/modules/**/*.ejs');
 
 module.exports = {
   pages,
+  entries,
   build: {
     env: require('./prod.env'),
     assetsRoot: path.resolve(__dirname, '../dist'),
@@ -38,7 +31,7 @@ module.exports = {
     productionSourceMap: true
   },
   proxy: {
-    host: 'https://github.com/'
+    host: 'http://www.example.com'
   },
   dev: {
     env: require('./dev.env'),

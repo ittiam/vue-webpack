@@ -12,7 +12,7 @@ const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : config.build.env;
 
-const chunks = Object.keys(config.pages);
+const chunks = Object.keys(config.entries);
 
 let commonChunks = new webpack.optimize.CommonsChunkPlugin({
   name: 'vendor',
@@ -35,20 +35,21 @@ if (chunks.length > 1) {
   });
 }
 
-const plugins = chunks.map(function (name) {
-  return new HtmlWebpackPlugin({
-    filename: process.env.NODE_ENV === 'testing'
-      ? `${name}.html`
-      : config.pages[name].html,
-    template: `template/${name}.html`,
+const plugins =  Object.keys(config.pages).map(function (name) {
+  var conf = {
+    filename: `${name}.html`,
+    template: config.pages[name],
     inject: true,
-    chunks: ['vendor', name],
-    minify: {
-      removeComments: true,
-      collapseWhitespace: true,
-      removeAttributeQuotes: true
-    }
-  });
+    minify: false
+  }
+
+  if (name in config.entries) {
+    conf.chunks = ['vendor', name];
+  } else {
+    conf.chunks = [];
+  }
+
+  return new HtmlWebpackPlugin(conf);
 });
 
 module.exports = merge(baseWebpackConfig, {

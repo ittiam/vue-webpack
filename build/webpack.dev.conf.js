@@ -11,12 +11,16 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
 });
 
 const plugins = Object.keys(config.pages).map(function (name) {
-  return new HtmlWebpackPlugin({
+  var conf = {
     filename: `${name}.html`,
-    template: `template/${name}.html`,
-    inject: true,
-    chunks: [name]
-  });
+    template: config.pages[name],
+    inject: true
+  };
+
+  if (name in config.entries) {
+    conf.chunks = [name];
+  }
+  return new HtmlWebpackPlugin(conf);
 });
 
 module.exports = merge(baseWebpackConfig, {

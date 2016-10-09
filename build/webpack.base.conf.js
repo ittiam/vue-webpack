@@ -4,14 +4,8 @@ const utils = require('./utils');
 const projectRoot = path.resolve(__dirname, '../');
 const autoprefixer = require('autoprefixer');
 
-const entry = {};
-
-Object.keys(config.pages).forEach(function (name) {
-  entry[name] = config.pages[name].entry;
-});
-
 module.exports = {
-  entry,
+  entry: config.entries,
   output: {
     path: config.build.assetsRoot,
     publicPath: config.build.assetsPublicPath,
@@ -30,20 +24,6 @@ module.exports = {
     fallback: [path.join(__dirname, '../node_modules')]
   },
   module: {
-    // preLoaders: [
-    //   {
-    //     test: /\.vue$/,
-    //     loader: 'eslint',
-    //     include: projectRoot,
-    //     exclude: /node_modules/
-    //   },
-    //   {
-    //     test: /\.js$/,
-    //     loader: 'eslint',
-    //     include: projectRoot,
-    //     exclude: /node_modules/
-    //   }
-    // ],
     loaders: [
       {
         test: /\.vue$/,
@@ -83,9 +63,6 @@ module.exports = {
   },
   postcss: function () {
     return [autoprefixer];
-  },
-  eslint: {
-    formatter: require('eslint-friendly-formatter')
   },
   vue: {
     loaders: utils.cssLoaders()

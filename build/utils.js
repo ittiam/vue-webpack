@@ -48,5 +48,6 @@ exports.styleLoaders = function (options) {
       loader: loader
     });
   }
+
   return output;
 };
