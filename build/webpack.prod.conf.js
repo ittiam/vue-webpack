@@ -40,13 +40,13 @@ const plugins =  Object.keys(config.pages).map(function (name) {
     filename: `${name}.html`,
     template: config.pages[name],
     inject: true,
-    minify: false
+    minify: false,
+    chunksSortMode: 'dependency',
+    chunks: []
   }
 
   if (name in config.entries) {
     conf.chunks = ['vendor', name];
-  } else {
-    conf.chunks = [];
   }
 
   return new HtmlWebpackPlugin(conf);

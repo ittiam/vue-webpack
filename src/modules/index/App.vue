@@ -26,12 +26,8 @@
 import Hello from '../../components/Hello';
 
 export default {
-  ready() {
-    this.$http
-      .get('shuju/interfaceIndustryChart/1')
-      .then((data) => {
-        console.log(data);
-      });
+  mounted() {
+
   },
   components: {
     Hello
@@ -53,8 +49,6 @@ body {
 
 #app {
   color: #2c3e50;
-  margin-top: -100px;
-  max-width: 600px;
   font-family: Source Sans Pro, Helvetica, sans-serif;
   text-align: center;
 }

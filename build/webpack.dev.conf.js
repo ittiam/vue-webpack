@@ -1,4 +1,5 @@
 const config = require('../config');
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const utils = require('./utils');
@@ -14,7 +15,8 @@ const plugins = Object.keys(config.pages).map(function (name) {
   var conf = {
     filename: `${name}.html`,
     template: config.pages[name],
-    inject: true
+    inject: true,
+    chunks: []
   };
 
   if (name in config.entries) {

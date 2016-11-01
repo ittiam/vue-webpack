@@ -1,6 +1,6 @@
-# pack
+# 基于 webpack vue.js 多页
 
-> webpack  多页
+> 基于 webpack vue.js 多页
 
 ## Build Setup
 

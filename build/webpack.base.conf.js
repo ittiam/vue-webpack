@@ -1,8 +1,26 @@
-const path = require('path');
-const config = require('../config');
-const utils = require('./utils');
-const projectRoot = path.resolve(__dirname, '../');
-const autoprefixer = require('autoprefixer');
+var path = require('path');
+var config = require('../config');
+var utils = require('./utils');
+var projectRoot = path.resolve(__dirname, '../');
+var autoprefixer = require('autoprefixer');
+var SpritesmithPlugin = require('./spritesmith');
+
+var env = process.env.NODE_ENV;
+var useCssSourceMap = (env === 'development');
+
+var browserOptions = {
+  browsers: [
+    'ie >= 8',
+    'ie_mob >= 10',
+    'ff >= 26',
+    'chrome >= 30',
+    'safari >= 6',
+    'opera >= 23',
+    'ios >= 5',
+    'android >= 2.3',
+    'bb >= 10'
+  ]
+};
 
 module.exports = {
   entry: config.entries,
@@ -12,7 +30,7 @@ module.exports = {
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
+    extensions: ['', '.js', '.vue', '.less'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
       src: path.resolve(__dirname, '../src'),
@@ -20,6 +38,7 @@ module.exports = {
       components: path.resolve(__dirname, '../src/components')
     }
   },
+  // plugins: [ SpritesmithPlugin() ],
   resolveLoader: {
     fallback: [path.join(__dirname, '../node_modules')]
   },
@@ -62,9 +81,9 @@ module.exports = {
     ]
   },
   postcss: function () {
-    return [autoprefixer];
+    return [autoprefixer(browserOptions)];
   },
   vue: {
-    loaders: utils.cssLoaders()
+    loaders: utils.cssLoaders({sourceMap: useCssSourceMap})
   }
 };

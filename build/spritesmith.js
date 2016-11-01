@@ -9,7 +9,7 @@ module.exports = function () {
     },
     target: {
       image: path.resolve(__dirname, '../src/assets/sprites/sprite.png'),
-      css: path.resolve(__dirname, '../src/assets/sprites/sprite.scss')
+      css: path.resolve(__dirname, '../src/assets/sprites/sprite.css')
     },
     retina: '@2x',
     apiOptions: {
