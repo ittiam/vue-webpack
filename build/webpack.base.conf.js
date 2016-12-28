@@ -5,6 +5,9 @@ var projectRoot = path.resolve(__dirname, '../');
 var autoprefixer = require('autoprefixer');
 var SpritesmithPlugin = require('./spritesmith');
 
+
+var projectRoot = path.resolve(__dirname, '../');
+
 var env = process.env.NODE_ENV;
 var useCssSourceMap = (env === 'development');
 
@@ -15,10 +18,8 @@ var browserOptions = {
     'ff >= 26',
     'chrome >= 30',
     'safari >= 6',
-    'opera >= 23',
-    'ios >= 5',
-    'android >= 2.3',
-    'bb >= 10'
+    'ios >= 8',
+    'android >= 2.3'
   ]
 };
 
@@ -30,7 +31,7 @@ module.exports = {
     filename: '[name].js'
   },
   resolve: {
-    extensions: ['', '.js', '.vue', '.less'],
+    extensions: ['', '.js', '.vue', 'jsx', '.less'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
       src: path.resolve(__dirname, '../src'),
@@ -48,6 +49,15 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue'
       },
+      // {
+      //   test: /\.jsx?$/,
+      //   loader: 'babel',
+      //   include: projectRoot,
+      //   exclude: /node_modules/,
+      //   query: {
+      //     presets: ['es2015', 'react']
+      //   }
+      // },
       {
         test: /\.js$/,
         loader: 'babel',
