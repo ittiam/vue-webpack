@@ -2,7 +2,7 @@
   "name": "vue-webpack",
   "version": "1.0.0",
   "description": "基于 webpack vue.js 多页",
-  "author": "chenzh <chenzh@wdzj.com>",
+  "author": "czh <ittiamc@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
