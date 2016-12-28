@@ -1,73 +1,72 @@
-const path = require('path');
-const koa = require('koa');
-const serve = require('koa-static-server');
-const webpack = require('webpack');
-const config = require('../config');
-const webpackConfig = process.env.NODE_ENV === 'testing'
+var path = require('path');
+var express = require('express');
+var webpack = require('webpack');
+var config = require('../config');
+var opn = require('opn');
+var proxyMiddleware = require('http-proxy-middleware');
+var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf');
 
-function applyExpressMiddleware(fn, req, res) {
-  var originalEnd = res.end;
 
-  return function (done) {
-    res.end = function () {
-      originalEnd.apply(this, arguments);
-      done(null, 0);
-    };
-    fn(req, res, function () {
-      done(null, 1);
-    });
-  }
-}
+var port = process.env.PORT || config.dev.port
+// Define HTTP proxies to your custom API backend
+// https://github.com/chimurai/http-proxy-middleware
+var proxyTable = config.dev.proxyTable
 
-// default port where dev server listens for incoming traffic
-const port = process.env.PORT || config.dev.port;
+var app = express()
+var compiler = webpack(webpackConfig)
 
-const app = koa();
-const compiler = webpack(webpackConfig);
-
-const devMiddleware = require('koa-webpack-dev-middleware')(compiler, {
+var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   stats: {
     colors: true,
     chunks: false
   }
-});
+})
+
+var hotMiddleware = require('webpack-hot-middleware')(compiler)
+// force page reload when html-webpack-plugin template changes
+compiler.plugin('compilation', function (compilation) {
+  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
+    hotMiddleware.publish({ action: 'reload' })
+    cb()
+  })
+})
+
+// proxy api requests
+Object.keys(proxyTable).forEach(function (context) {
+  var options = proxyTable[context]
+  if (typeof options === 'string') {
+    options = { target: options }
+  }
+  app.use(proxyMiddleware(context, options))
+})
+
+// handle fallback for HTML5 history API
+app.use(require('connect-history-api-fallback')())
 
 // serve webpack bundle output
-app.use(devMiddleware);
-
-function hotMiddleware(compiler) {
-  var doIt = require('webpack-hot-middleware')(compiler);
-  return function* (next) {
-    var ctx = this;
-    var runNext = yield applyExpressMiddleware(doIt, ctx.req, ctx.res);
-    if (runNext) {
-      yield *next;
-    }
-  };
-}
+app.use(devMiddleware)
 
 // enable hot-reload and state-preserving
 // compilation error display
-app.use(hotMiddleware(compiler));
-
-if (config.proxy) {
-  app.use(require('koa-proxy')(config.proxy));
-}
+app.use(hotMiddleware)
 
 // serve pure static assets
-const staticPath = path.posix.join(config.build.assetsPublicPath, config.build.assetsSubDirectory);
-app.use(serve({
-  rootDir: './static',
-  rootPath: staticPath
-}));
+var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+app.use(staticPath, express.static('./static'))
 
 module.exports = app.listen(port, function (err) {
   if (err) {
-    console.log(err);
-    return;
+    console.log(err)
+    return
   }
-  console.log('Listening at http://localhost:' + port + '\n');
-});
+  var uri = 'http://localhost:' + port
+  console.log('Listening at ' + uri + '\n')
+
+  // when env is testing, don't need open it
+  if (process.env.NODE_ENV !== 'testing') {
+    opn(uri)
+  }
+})
