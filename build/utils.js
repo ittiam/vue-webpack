@@ -1,6 +1,6 @@
-const path = require('path');
-const config = require('../config');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path');
+var config = require('../config');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 exports.assetsPath = function (_path) {
   return path.posix.join(config.build.assetsSubDirectory, _path);
@@ -38,10 +38,10 @@ exports.cssLoaders = function (options) {
 
 // Generate loaders for standalone style files (outside of .vue)
 exports.styleLoaders = function (options) {
-  const output = [];
+  var output = [];
   var loaders = exports.cssLoaders(options);
   for (var extension in loaders) {
-    const loader = loaders[extension];
+    var loader = loaders[extension];
     output.push({
       test: new RegExp('\\.' + extension + '$'),
       loader: loader
