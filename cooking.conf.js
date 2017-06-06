@@ -7,7 +7,7 @@ var isProd = process.env.NODE_ENV === 'production';
 var hash = true;
 
 var assetsPath = 'static';
-console.log(build.chunks())
+
 cooking.set({
   entry: build.entries(),
   dist: './dist',
@@ -16,6 +16,9 @@ cooking.set({
     port: 8088,
     publicPath: '/',
     proxy: {
+      '/users': {
+        target: 'http://jsonplaceholder.typicode.com'
+      }
     }
   },
   clean: true,

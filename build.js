@@ -35,7 +35,8 @@ exports.templates = function() {
 exports.chunks = function () {
   var chunks = pages.map(p => {
     return p.entry;
-  })
+  });
+
   return {
     vendor: chunks
   };
