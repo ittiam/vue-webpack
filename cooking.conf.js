@@ -7,7 +7,7 @@ var isProd = process.env.NODE_ENV === 'production';
 var hash = true;
 
 var assetsPath = 'static';
-
+console.log(build.chunks())
 cooking.set({
   entry: build.entries(),
   dist: './dist',
@@ -21,7 +21,7 @@ cooking.set({
   clean: true,
   hash: hash,
   sourceMap: false,
-  chunk: true,
+  chunk: build.chunks(),
   postcss: [],
   publicPath: '/',
   urlLoaderLimit: false,

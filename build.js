@@ -27,12 +27,19 @@ exports.templates = function() {
     return {
       filename: p.entry + '.html',
       template: path.resolve(basePath, p.entry, 'index.html'),
-      chunks: ['vendor', 'manifest', p.entry]
+      chunks: ['vendor', p.entry]
     }
   })
 }
 
-exports.chunks = pages;
+exports.chunks = function () {
+  var chunks = pages.map(p => {
+    return p.entry;
+  })
+  return {
+    vendor: chunks
+  };
+};
 
 exports.externals = function() {
   return {
