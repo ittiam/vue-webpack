@@ -15,11 +15,7 @@ cooking.set({
   devServer: {
     port: 8088,
     publicPath: '/',
-    proxy: {
-      '/users': {
-        target: 'http://jsonplaceholder.typicode.com'
-      }
-    }
+    proxy: {}
   },
   clean: true,
   hash: hash,

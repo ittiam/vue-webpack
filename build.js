@@ -32,14 +32,17 @@ exports.templates = function() {
   })
 }
 
-exports.chunks = function () {
+exports.chunks = function() {
   var chunks = pages.map(p => {
     return p.entry;
   });
 
-  return {
-    vendor: chunks
-  };
+  return [
+    {
+      name: 'vendor',
+      chunks: chunks
+    }
+  ];
 };
 
 exports.externals = function() {
