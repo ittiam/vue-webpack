@@ -25,9 +25,11 @@ cooking.set({
   publicPath: '/',
   urlLoaderLimit: false,
   assetsPath: assetsPath,
-  extractCSS: isProd ? assetsPath + (hash ? '/css/[name].[hash:8].css' : '/css/[name].css') : true,
+  extractCSS: isProd
+    ? assetsPath + (hash ? '/css/[name].[hash:8].css' : '/css/[name].css')
+    : true,
   alias: {
-    'src': path.join(__dirname, 'src')
+    src: path.join(__dirname, 'src')
   },
   extends: [
     'less',
@@ -44,10 +46,17 @@ cooking.add('loader.image', {
   loader: 'url-loader',
   query: {
     limit: 5000,
-    name: path.posix.join(assetsPath, (hash ? 'images/[name].[hash:8].[ext]' : 'images/[name].[ext]'))
+    name: path.posix.join(
+      assetsPath,
+      hash ? 'images/[name].[hash:8].[ext]' : 'images/[name].[ext]'
+    )
   }
 });
 
-isProd && cooking.add('output.filename', assetsPath + (hash ? '/js/[name].[hash:8].js' : 'js/[name].js'));
+isProd &&
+  cooking.add(
+    'output.filename',
+    assetsPath + (hash ? '/js/[name].[hash:8].js' : 'js/[name].js')
+  );
 
 module.exports = cooking.resolve();
