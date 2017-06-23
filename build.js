@@ -15,12 +15,12 @@ files.forEach(f => {
 });
 
 exports.entries = function() {
-  var result = {}
+  var result = {};
   pages.forEach(p => {
-    result[p.entry] = path.resolve(basePath, p.entry)
-  })
-  return result
-}
+    result[p.entry] = path.resolve(basePath, p.entry);
+  });
+  return result;
+};
 
 exports.templates = function() {
   return pages.map(p => {
@@ -28,9 +28,9 @@ exports.templates = function() {
       filename: p.entry + '.html',
       template: path.resolve(basePath, p.entry, 'index.html'),
       chunks: ['vendor', p.entry]
-    }
-  })
-}
+    };
+  });
+};
 
 exports.chunks = function() {
   var chunks = pages.map(p => {
@@ -48,5 +48,5 @@ exports.chunks = function() {
 exports.externals = function() {
   return {
     jquery: 'jQuery'
-  }
-}
+  };
+};
