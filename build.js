@@ -1,12 +1,13 @@
-var path = require('path');
-var fs = require('fs');
-var pages = [];
-var basePath = './src/pages/';
+const path = require('path');
+const fs = require('fs');
 
-var files = fs.readdirSync(basePath);
+const pages = [];
+const basePath = './src/pages/';
+
+const files = fs.readdirSync(basePath);
 
 files.forEach(f => {
-  var p = path.resolve(basePath, f);
+  const p = path.resolve(basePath, f);
   if (fs.statSync(p).isDirectory()) {
     pages.push({
       entry: f
@@ -15,7 +16,7 @@ files.forEach(f => {
 });
 
 exports.entries = function() {
-  var result = {};
+  const result = {};
   pages.forEach(p => {
     result[p.entry] = path.resolve(basePath, p.entry);
   });
@@ -33,14 +34,14 @@ exports.templates = function() {
 };
 
 exports.chunks = function() {
-  var chunks = pages.map(p => {
+  const chunks = pages.map(p => {
     return p.entry;
   });
 
   return [
     {
       name: 'vendor',
-      chunks: chunks
+      chunks
     }
   ];
 };
