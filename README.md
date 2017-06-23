@@ -5,7 +5,6 @@
 ## Build Setup
 
 ``` bash
-
 # install cooking
 npm install -g cooking-ci
 

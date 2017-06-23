@@ -1,12 +1,19 @@
-var path = require('path');
-var cooking = require('cooking');
-var build = require('./build');
+const path = require('path');
+/* eslint-disable import/no-unresolved, import/no-extraneous-dependencies */
+const cooking = require('cooking');
+const build = require('./build');
 
-var isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === 'production';
 
-var hash = true;
+const hash = true;
 
-var assetsPath = 'static';
+const assetsPath = 'static';
+
+const AUTOPREFIXER_BROWSERS = [
+  'iOS >= 6',
+  'Android >= 4',
+  'ChromeAndroid >= 40'
+];
 
 cooking.set({
   entry: build.entries(),
@@ -18,13 +25,13 @@ cooking.set({
     proxy: {}
   },
   clean: true,
-  hash: hash,
+  hash,
   sourceMap: false,
   chunk: build.chunks(),
   postcss: [],
   publicPath: '/',
   urlLoaderLimit: false,
-  assetsPath: assetsPath,
+  assetsPath,
   extractCSS: isProd
     ? assetsPath + (hash ? '/css/[name].[hash:8].css' : '/css/[name].css')
     : true,
@@ -34,7 +41,7 @@ cooking.set({
   extends: [
     'less',
     'vue2',
-    ['autoprefixer', { browsers: ['last 2 versions'] }]
+    ['autoprefixer', { browsers: AUTOPREFIXER_BROWSERS }]
   ],
   externals: build.externals()
 });
