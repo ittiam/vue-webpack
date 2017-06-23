@@ -8,6 +8,12 @@ var hash = true;
 
 var assetsPath = 'static';
 
+const AUTOPREFIXER_BROWSERS = [
+  'iOS >= 6',
+  'Android >= 4',
+  'ChromeAndroid >= 40'
+];
+
 cooking.set({
   entry: build.entries(),
   dist: './dist',
@@ -34,7 +40,7 @@ cooking.set({
   extends: [
     'less',
     'vue2',
-    ['autoprefixer', { browsers: ['last 2 versions'] }]
+    ['autoprefixer', { browsers: AUTOPREFIXER_BROWSERS }]
   ],
   externals: build.externals()
 });
