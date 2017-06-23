@@ -6,6 +6,8 @@ const basePath = './src/pages/';
 
 const files = fs.readdirSync(basePath);
 
+console.log(files);
+
 files.forEach(f => {
   const p = path.resolve(basePath, f);
   if (fs.statSync(p).isDirectory()) {
@@ -24,19 +26,15 @@ exports.entries = function() {
 };
 
 exports.templates = function() {
-  return pages.map(p => {
-    return {
-      filename: p.entry + '.html',
-      template: path.resolve(basePath, p.entry, 'index.html'),
-      chunks: ['vendor', p.entry]
-    };
-  });
+  return pages.map(p => ({
+    filename: `${p.entry}.html`,
+    template: path.resolve(basePath, p.entry, 'index.html'),
+    chunks: ['vendor', p.entry]
+  }));
 };
 
 exports.chunks = function() {
-  const chunks = pages.map(p => {
-    return p.entry;
-  });
+  const chunks = pages.map(p => p.entry);
 
   return [
     {

@@ -1,4 +1,5 @@
 const path = require('path');
+/* eslint-disable import/no-unresolved, import/no-extraneous-dependencies */
 const cooking = require('cooking');
 const build = require('./build');
 

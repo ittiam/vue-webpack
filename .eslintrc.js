@@ -12,12 +12,14 @@ module.exports = {
     // 数组和对象键值对最后一个逗号， never参数：不能带末尾的逗号, always参数：必须带末尾的逗号
     'comma-dangle': ['error', 'never'],
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'allow',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-console': process.env.NODE_ENV === 'production'
-      ? { allow: ['warn', 'error'] }
-      : 'allow',
+      ? ['error', { allow: ['warn', 'error'] }]
+      : 'off',
     // the maximum depth callbacks can be nested
     'max-nested-callbacks': ['error', 3],
+    // enforces no braces where they can be omitted
+    'arrow-body-style': ['error', 'as-needed'],
     // limits the number of parameters that can be used in the function declaration.
     'max-params': ['error', 5],
     // limit cyclomatic complexity
